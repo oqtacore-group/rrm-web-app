@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>Client Profile</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+  <mat-card>
+    <style>
+      mat-form-field {
+        width: 100%;
+      }
+    </style>
+    <mat-card-header></mat-card-header>
+    <form *ngIf="form_data" #clientForm="ngForm" (ngSubmit)="clientForm.form.valid && onClickEditProfile(form_data.id)" style="text-align:center">
+      <button mat-raised-button class="standart_text" type="submit">Save client</button>
+      <button mat-raised-button *ngIf="dialogRef" class="standart_text" type="button" (click)="closeDialog(true)"> Close</button>
+      <div style="display:flex;flex-direction:row">
+        <mat-card style="width:50%">
+          <mat-form-field>
+            <mat-label>Name </mat-label>
+            <input matInput type="text" [(ngModel)]="form_data.Name" name="Name" required>
+            <button mat-button *ngIf="form_data.Name" matSuffix mat-icon-button (click)="form_data.Name=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>PhoneNumber </mat-label>
+            <input matInput type="text" [(ngModel)]="form_data.PhoneNumber" name="PhoneNumber">
+            <button mat-button *ngIf="form_data.PhoneNumber" matSuffix mat-icon-button (click)="form_data.PhoneNumber = ''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>SiteUrl </mat-label>
+            <input matInput type="text" [(ngModel)]="form_data.SiteUrl" name="SiteUrl">
+            <button mat-button *ngIf="form_data.SiteUrl" matSuffix mat-icon-button (click)="form_data.SiteUrl=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Email </mat-label>
+            <input matInput type="text" [(ngModel)]="form_data.Email" name="Email">
+            <button mat-button *ngIf="form_data.Email" matSuffix mat-icon-button (click)="form_data.Email=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+        </mat-card>
+        <mat-card style="width:50%">
+          <div  class="mat-elevation-z8" style="text-align:center">
+            <h4>Contacts of this Client</h4>
+            <mat-card *ngFor="let contact of contact_list">
+              <div style="display:flex;flex-direction:row;text-align:center;">
+                <h6 style="text-transform:capitalize;margin-left: auto; line-height: 60px;">{{contact.Name}}</h6>
+                <div style="margin-left: auto;height: 60px;">
+                <button mat-raised-button class="standart_text" type="button" (click)="onClientContactEditClicked(contact)"> <i class="fa fa-fw fa-pencil" ></i></button>
+                <button mat-raised-button class="standart_text" type="button" (click)="deleteContact(contact)"><i class="fa fa-fw fa-trash"></i></button>
+                  </div>
+              </div>
+            
+            </mat-card>
+        
+            <button mat-raised-button class="standart_text" (click)="createNewClientContact()" type="button">Add Contact</button>
+          </div>
+        </mat-card>
+      </div>
+    </form>
+  </mat-card>
+</mat-dialog-content>

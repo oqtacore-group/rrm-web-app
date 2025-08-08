@@ -1,0 +1,25 @@
+<mat-card>
+
+    <mat-card *ngIf="client_state_list" style="display: flex;
+      flex-direction: row;
+      overflow-x: scroll;">
+      <div *ngFor="let client_state of client_state_list" [ngClass]="(client_state.name==status_id)?'active':'deactive'" [style.cursor]="client_state.clientCount>0?'pointer':'not-allowed'" (click)="client_state.clientCount>0?openOtherStatus(client_state.name):''">
+
+        <h4>{{client_state.name}}({{client_state.clientCount}})</h4>
+      </div>
+
+    </mat-card>
+    <mat-divider></mat-divider>
+    <div style="display:flex;flex-direction:row">
+      <mat-card *ngIf="clientlist && vacancy_data">
+        <div class="clicable" *ngFor="let client of clientlist" (click)="openProfile(client.id)" [ngClass]="(selected_client_id==client.id)?'active':'deactive'">
+
+          <h4 >{{client.Name}}</h4>
+          <p>{{getVacancyNumber(client.id)}} active vacancy</p>
+        </div>
+
+
+      </mat-card>
+      <app-client-profile (clientDeleted)="onClientDeleted()" (clientEdited)="onClientEdited()" *ngIf="clientlist && containsClient()  && selected_client_id>0 " [url_id]="selected_client_id" style="width: -webkit-fill-available;"></app-client-profile>
+    </div>
+  </mat-card>

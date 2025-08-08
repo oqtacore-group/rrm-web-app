@@ -1,0 +1,107 @@
+<mat-card *ngIf="form_data" style="text-align:center">
+   
+      <mat-card-title>{{form_data.Name}} Profile</mat-card-title>
+      <h6>{{client.Name}}</h6>
+      <mat-card-actions>
+        <button mat-raised-button class="standart_text" type="submit" (click)="onClickEditProfile()">Edit vacancy</button>
+        <button  mat-raised-button class="standart_text" type="button" (click)="deleteVacancy()"> Delete vacancy</button>
+    
+        <button  mat-raised-button class="standart_text" type="button" (click)="toggleOpenedState()"> {{form_data.Opened?'Close vacancy':'Open vacancy'}}</button>
+        </mat-card-actions>
+  
+  
+      <div>
+      
+          <mat-form-field>
+            <mat-label>People needed for this vacancy </mat-label>
+            <input matInput type="number" [(ngModel)]="form_data.WorkplaceNumber" name="WorkplaceNumber" readonly>
+  
+          </mat-form-field>
+          <!--Future select-->
+          <mat-form-field>
+            <mat-label>Status </mat-label>
+            <input matInput type="text" [(ngModel)]="form_data.Status" name="Status" readonly>
+  
+          </mat-form-field>
+  
+  
+          <div>
+            <mat-form-field style="width:40%">
+              <mat-label>Salary Lower End </mat-label>
+              <input matInput type="number" [(ngModel)]="form_data.SalaryLowerEnd" name="SalaryLowerEnd" readonly>
+   
+            </mat-form-field>
+  
+            <mat-form-field style="width:40%">
+              <mat-label>Salary High End </mat-label>
+              <input matInput type="number" [(ngModel)]="form_data.SalaryHighEnd" name="SalaryHighEnd" readonly>
+  
+            </mat-form-field>
+            <!--Future select-->
+            <mat-form-field style="width:20%">
+              <mat-label>Currency </mat-label>
+              <input matInput type="text" [(ngModel)]="form_data.SalaryCurrency" name="SalaryCurrency" readonly>
+              <!--<select matNativeControl [(ngModel)]="form_data.SalaryCurrency" name="SalaryCurrency" readonly>
+                <option value="" selected></option>
+  
+                <option *ngFor="let currency of currencyList" value="{{currency}}">{{currency}}</option>
+              </select>-->
+              <!--<input matInput type="text" [(ngModel)]="form_data.SalaryCurrency" name="SalaryCurrency" required>-->
+              <!--<button mat-button *ngIf="form_data.SalaryCurrency" matSuffix mat-icon-button (click)="form_data.SalaryCurrency=''">
+      <mat-icon>X</mat-icon>
+    </button>-->
+            </mat-form-field>
+          </div>
+          <mat-form-field>
+            <mat-label>Experience in months</mat-label>
+            <input matInput type="number" [(ngModel)]="form_data.Experience" name="Experience" readonly>
+  
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Location </mat-label>
+            <input matInput type="text" [(ngModel)]="form_data.Location" name="Location" readonly>
+  
+          </mat-form-field>
+          <!--Future select-->
+          <mat-form-field>
+            <mat-label>LocalTime</mat-label>
+            <input matInput type="text" [(ngModel)]="form_data.LocalTime" name="LocalTime" readonly>
+  
+          </mat-form-field>
+  
+  
+          <mat-checkbox [(ngModel)]="form_data.RelocationHelp" name="RelocationHelp" labelPosition="after" readonly>Wil be Relocation Help</mat-checkbox>
+          <mat-checkbox [(ngModel)]="form_data.RemoteWorkPlace" name="RemoteWorkPlace" labelPosition="after" readonly>Allow Remote Work</mat-checkbox>
+  
+  
+  
+  
+          <mat-form-field  *ngIf="form_data.Responsibility && form_data.Responsibility!=''">
+            <mat-label>Responsibility </mat-label>
+            <textarea matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows=5 [(ngModel)]="form_data.Responsibility" name="Responsibility" readonly></textarea>
+  
+          </mat-form-field>
+          <mat-form-field *ngIf="form_data.Skills && form_data.Skills!=''">
+            <mat-label>Resume text</mat-label>
+            <textarea matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows=5 [(ngModel)]="form_data.Skills" name="Skills" readonly></textarea>
+  
+          </mat-form-field>
+          <mat-form-field *ngIf="form_data.PersonalQuality && form_data.PersonalQuality!=''">
+            <mat-label>Personal Quality </mat-label>
+            <textarea matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows=5 [(ngModel)]="form_data.PersonalQuality" name="PersonalQuality" readonly></textarea>
+  
+          </mat-form-field>
+          <mat-form-field *ngIf="form_data.Languages && form_data.Languages!=''">
+            <mat-label>Languages </mat-label>
+            <textarea matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows=3 [(ngModel)]="form_data.Languages" name="Languages" readonly></textarea>
+  
+          </mat-form-field>
+          <mat-form-field *ngIf="form_data.Notes && form_data.Notes!=''">
+  
+            <mat-label>Notes </mat-label>
+            <textarea matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows=4 [(ngModel)]="form_data.Notes" name="Notes" readonly></textarea>
+  
+          </mat-form-field>
+      </div>
+  </mat-card>

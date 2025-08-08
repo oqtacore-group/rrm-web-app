@@ -1,0 +1,51 @@
+    <mat-sidenav-container style="min-height:90%" autosize>
+        <mat-sidenav #sidenav mode="side" opened style="max-width:500px;display:flex;flex-direction:column;padding-left:20px;text-align:center">
+          <mat-nav-list class="toogle-button">
+            <button mat-button (click)="sidenav.toggle()">Toggle</button>
+            <a mat-list-item routerLinkActive="active" routerLink="/Calendar">Calendar</a>
+            <a mat-list-item routerLinkActive="active" routerLink="/Statistic">Statistic</a>
+          </mat-nav-list>
+          <div>
+            <mat-nav-list style="margin-bottom:30px;">
+              <a mat-list-item routerLinkActive="active" routerLink="/Vacancy">All Applicants</a>
+    
+            </mat-nav-list>
+            <mat-nav-list>
+              <mat-form-field style="margin-right:15px">
+                <mat-select [(ngModel)]="selectedRecruiterId" (selectionChange)="onRecruiterChange($event)" name="selectedRecruiter">
+    
+                  <mat-option [value]="0">All Recruiters</mat-option>
+                  <mat-option *ngIf="selectedRecruiter" [value]="selectedRecruiter.id" selected>
+                    {{selectedRecruiter.Name}} (Me)
+                  </mat-option>
+                  <mat-optgroup label="Other recruiters">
+                    <mat-option *ngFor="let recruiter of recruiterList" [value]="recruiter.id">
+                      {{recruiter.Name}}
+                    </mat-option>
+                  </mat-optgroup>
+    
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select [(ngModel)]="selectedClientId" (selectionChange)="onClientChange($event)" name="selectedClient">
+                  <mat-option [value]="0">All Client</mat-option>
+                    <mat-option *ngFor="let client of clientList" [value]="client.id">
+                      {{client.Name}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-divider></mat-divider>
+              <a style="text-align: left;" mat-list-item routerLinkActive="active" *ngFor="let vacancy of filteredVacancyList" [routerLink]="['profile',vacancy.id,'Candidates']">{{vacancy.Name}}</a>
+            </mat-nav-list>
+    
+          </div>
+        </mat-sidenav>
+    
+        <mat-sidenav-content>
+          <button class="toogle-button" mat-button (click)="sidenav.toggle()">Toggle</button>
+          <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    
+      </mat-sidenav-container>
+      <app-vacancy-add-fab></app-vacancy-add-fab>
+  

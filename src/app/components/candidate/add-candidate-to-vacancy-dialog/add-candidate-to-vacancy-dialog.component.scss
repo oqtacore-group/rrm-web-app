@@ -1,0 +1,25 @@
+mat-form-field {
+    width: 100%;
+  }
+  .active-vacancy-button{
+    background:green;
+  }
+    .active-vacancy-button p {
+      margin:0;
+    }
+    .active-vacancy-button .delete-text {
+      display:none;
+    }
+    .active-vacancy-button:hover .delete-text {
+      display: inline;
+    }
+  active-vacancy-button .active-text {
+    display: inline;
+  }
+
+  .active-vacancy-button:hover .active-text {
+    display: none;
+  }
+    .active-vacancy-button:hover {
+      background: red;
+    }
