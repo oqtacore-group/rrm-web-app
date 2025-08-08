@@ -1,0 +1,22 @@
+mat-form-field {
+    width: 100%;
+  }
+
+  td.mat-cell {
+    border-bottom-style: none;
+  }
+
+  th.mat-header-cell {
+    border-bottom-style: none;
+  }
+  .active {
+    color: green;
+    padding: 10px;
+  }
+
+  .deactive {
+    padding: 10px;
+  }
+  .attention_label {
+    color: orange;
+  }

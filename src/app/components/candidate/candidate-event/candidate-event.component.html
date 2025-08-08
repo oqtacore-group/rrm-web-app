@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Event</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+  <mat-card style="text-align:center">
+    <form *ngIf="event_data" #candidateForm="ngForm" >
+  
+      <button mat-raised-button class="standart_text" type="submit" (click)="editCandidateEvent()">Save event</button>  
+      <p *ngIf="error_message" style="color:red;">{{error_message}}</p>
+      <div>
+        <mat-card>
+          <div style="text-align: center; margin-bottom: 10px;">
+            <owl-date-time-inline [(ngModel)]="event_data.Date" name="Date"></owl-date-time-inline>
+
+          </div>
+  
+          <mat-form-field>
+            <mat-label>Caption </mat-label>
+            <input matInput type="text" [(ngModel)]="event_data.Caption" name="Caption" required>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>CandidateId </mat-label>
+            <select matNativeControl [(ngModel)]="event_data.CandidateId" name="CandidateId" required>
+              <option value="" selected></option>
+  
+              <option *ngFor="let candidate of candidate_list" value="{{candidate.id}}">{{candidate.Name}}</option>
+            </select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Zoom link </mat-label>
+            <input matInput type="text" [(ngModel)]="event_data.ZoomLink" name="ZoomLink">
+          </mat-form-field>
+        </mat-card>
+      </div>
+    </form>
+  
+  </mat-card>
+</mat-dialog-content>

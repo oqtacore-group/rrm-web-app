@@ -1,0 +1,429 @@
+
+<mat-dialog-content>
+  <mat-card style="text-align:center">
+  
+  
+    <form *ngIf="form_data" #candidateForm="ngForm" (ngSubmit)="candidateForm.form.valid && !readonly && onClickEditProfile()">
+      <mat-card-title *ngIf="form_data.Name">{{form_data.Name}}</mat-card-title>
+      <div *ngIf="readonly">
+        <button mat-raised-button class="standart_text" type="button" (click)="openEditModal()">Edit candidate</button>
+        <button mat-raised-button class="standart_text" type="button" (click)="deleteCandidate()"> Delete candidate</button>
+        <button mat-raised-button class="standart_text" type="button" (click)="addToVacancy()"> Add to vacancy </button>
+        <button mat-raised-button class="standart_text" type="button" (click)="addEvent()"> Add scheduled event </button>
+  
+      </div>
+      <div *ngIf="!readonly">
+        <button mat-raised-button class="standart_text" type="submit">Save candidate</button>
+        <button mat-raised-button class="standart_text" type="button" (click)="addToVacancy()"> Add to vacancy </button>
+        <button mat-raised-button class="standart_text" type="button" (click)="closeDialog(true)"> Close </button>
+      </div>
+      <div style="display:flex;flex-direction:row">
+        <mat-card style="width:50%">
+  
+          <mat-form-field>
+            <mat-label>Name </mat-label>
+            <input matInput type="text" [readonly]="readonly" [(ngModel)]="form_data.Name" name="Name" required>
+            <button mat-button *ngIf="form_data.Name && !readonly" matSuffix mat-icon-button (click)="form_data.Name=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field [ngClass]="{'readonly-wrapper':readonly}">
+            <mat-label>Sex </mat-label>
+            <select [ngClass]="{'readonly-block':readonly}" matNativeControl [readonly]="readonly" [disabled]="readonly" [(ngModel)]="form_data.Sex" name="Sex">
+              <option value="" selected></option>
+  
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </mat-form-field>
+         
+  
+          <mat-form-field>
+            <mat-label>PhoneNumber </mat-label>
+            <input matInput type="text" [readonly]="readonly" [(ngModel)]="form_data.PhoneNumber" name="PhoneNumber">
+            <button mat-button *ngIf="form_data.PhoneNumber && !readonly" matSuffix mat-icon-button (click)="form_data.PhoneNumber=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+  
+  
+          <mat-form-field>
+            <mat-label>Email </mat-label>
+            <input matInput type="text" [readonly]="readonly" [(ngModel)]="form_data.Email" name="Email">
+            <button mat-button *ngIf="form_data.Email && !readonly" matSuffix mat-icon-button (click)="form_data.Email=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+  
+  
+          <mat-form-field *ngIf="!readonly">
+            <mat-label>Resume Url </mat-label>
+            <input matInput type="text" [readonly]="readonly" [(ngModel)]="form_data.HHurl" name="HHurl">
+            <button mat-button *ngIf="form_data.HHurl && !readonly" matSuffix mat-icon-button (click)="form_data.HHurl=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field *ngIf="readonly">
+            <mat-label>Resume Url </mat-label>
+            <a href="{{form_data.HHurl}}" target="_blank"> 
+              <input matInput type="text" [readonly]="readonly" [(ngModel)]="form_data.HHurl" name="HHurl">
+            </a>
+          </mat-form-field>
+          <!--<div *ngIf="readonly">
+          <mat-label>Resume Url </mat-label>
+          <a href="{{form_data.HHurl}}" target="_blank">{{form_data.HHurl}}</a>
+        </div>-->
+  
+          <mat-form-field>
+            <mat-label>Last Job position</mat-label>
+            <input matInput type="text" [readonly]="readonly" [(ngModel)]="form_data.lastjob_position" name="lastjob_position">
+            <button mat-button *ngIf="form_data.lastjob_position && !readonly" matSuffix mat-icon-button (click)="form_data.lastjob_position=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Last Job company </mat-label>
+            <input matInput type="text" [readonly]="readonly" [(ngModel)]="form_data.lastjob_company" name="lastjob_company">
+            <button mat-button *ngIf="form_data.lastjob_company && !readonly" matSuffix mat-icon-button (click)="form_data.lastjob_company=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Salary </mat-label>
+            <input matInput type="text" [readonly]="readonly" [(ngModel)]="form_data.salary" name="salary">
+            <button mat-button *ngIf="form_data.salary && !readonly" matSuffix mat-icon-button (click)="form_data.salary=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>DateOfBirth </mat-label>
+            <input matInput [readonly]="readonly" [matDatepicker]="datepicker" [(ngModel)]="form_data.DateOfBirth" name="DateOfBirth">
+            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker></mat-datepicker>
+          </mat-form-field>
+  
+          <h4 style="margin-top:20px;">Smart Links to Vacancy</h4>
+          <div *ngFor="let vacancy of vacancy_list">
+  
+            <p *ngIf="vacancy.id!=currentVacancy" (click)="moveToVacancy(vacancy.id)" style="cursor:pointer;color:blue;font-size:20px;text-decoration:underline;">{{vacancy.Name}} - Status: {{currentVacancyStatus(vacancy.id)}} </p>
+  
+  
+  
+          </div>
+  
+  
+  
+        </mat-card>
+        <mat-card style="width:50%">
+          <mat-form-field>
+            <mat-label>Resume text </mat-label>
+            <textarea matInput type="text" [readonly]="readonly" cdkTextareaAutosize cdkAutosizeMinRows=10 [(ngModel)]="form_data.resume_text" name="resume_text"></textarea>
+            <button mat-button *ngIf="form_data.resume_text && !readonly" matSuffix mat-icon-button (click)="form_data.resume_text=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-card *ngIf="file_list && file_list.length>0">
+            <h6>Candidate Resources</h6>
+            <mat-card *ngFor="let file of file_list" style="display:flex;flex-direction:row">
+              <div><a [href]="file.fileUrl" target="_blank">{{file.fileName}}</a> Added at {{file.DateAdded.toLocaleString()}}</div>    <button type="button" (click)="removeFile(file.id)"> X </button>
+            </mat-card>
+          </mat-card>
+          <input #fileNameInput type="text" placeholder="Write name of new file resource" [ngModelOptions]="{standalone: true}" [(ngModel)]="new_file_name" />
+          <input #fileInput type="file" (change)="fileInputChange($event)" />
+          <button mat-raised-button type="button" (click)="addFile()"> Add new Resource</button>
+        </mat-card>
+  
+      </div>
+  
+      <mat-tab-group>
+        <mat-tab label="Vacancy Status">
+          <div *ngIf="vacancy_list" class="mat-elevation-z8">
+            <mat-card *ngFor="let vacancy of vacancy_list" style="margin-top:12px">
+  
+              <h4>{{vacancy.Name}} - Status: {{currentVacancyStatus(vacancy.id)}}</h4>
+              <p>{{getVacancyClientName(vacancy.ClientId)}}</p>
+              <button mat-raised-button class="standart_text" type="button" (click)="AddConnectionComment(vacancy)"> Add Comment</button>
+              <button mat-raised-button class="standart_text" type="button" (click)="ChangeConnectionStatus(vacancy)"> Change status</button>
+              <mat-card *ngFor="let status of filterVacancyStatusList(vacancy.id)" style="border:solid 2px black;margin:5px;">
+                <p> {{status.StatusName}} at {{status.DateAdded |date:'dd/MM/yyyy'}}</p>
+                <p *ngIf="status.Note">Note: {{status.Note}}</p>
+                <div *ngIf="status.VacancyStatusId==attentionTypeId &&  status.id==currentVacancyStatusId(vacancy.id)">
+                  <button mat-raised-button type="button" (click)="completedEvent(vacancy)">Completed</button>
+                </div>
+              </mat-card>
+  
+  
+            </mat-card>
+            <mat-divider></mat-divider>
+          </div>
+        </mat-tab>
+        <mat-tab label="HeadHunter Information">
+          <mat-form-field>
+            <mat-label>Head Hunter Url For Parsing </mat-label>
+            <textarea matInput type="text" [(ngModel)]="headhunter_url" name="headhunter_url"></textarea>
+  
+          </mat-form-field>
+          <div *ngIf="hh_plugin_url_link">
+  
+            <p>
+              <b>You don not have required plugin for HeadHunter parsing</b>
+              <a href="/Assets/RRM_Plugin.rar">Link for plugin downloading </a>
+              Короткая инструкция <br>
+              1.Нужно распаковать это в папку. И положить папку там, где ты её случайно не удалишь. <br>
+              2.Открыть хром. Введи в url строку chrome://extensions/ и нажми enter. <br>
+              3.Справа сверху есть слайдер "Developer mode|Режим разработчика" , активируй его <br>
+              4.Слева сверху появится кнопка "Load unpacked|загрузить распакованный". <br>
+              5.Откроется проводник, там надо выбрать папку из пункта 1. <br>
+            </p>
+          </div>
+          <mat-card *ngIf="readonly" style="text-align:center">
+  
+  
+            <button mat-raised-button class="standart_text" type="button" (click)="onHeadHunterParsing()"> Parse this url </button>
+            <button mat-raised-button class="standart_text" type="button" (click)="onHeadHunterClear()"> Clear headhunter info </button>
+            <div *ngIf="headHunterData" style="display:flex;flex-direction:row">
+              <div style="width:50%;">
+                <mat-form-field>
+                  <mat-label>Position </mat-label>
+                  <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="headHunterData.Position" name="Position"></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Location </mat-label>
+                  <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="headHunterData.Location" name="Location"></textarea>
+  
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Skills </mat-label>
+                  <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="headHunterData.Skills" name="Skills"></textarea>
+  
+                </mat-form-field>
+  
+  
+                <mat-form-field>
+                  <mat-label>About </mat-label>
+                  <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="headHunterData.About" name="About"></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Employment </mat-label>
+                  <input matInput type="text" [readonly]="readonly" [(ngModel)]="headHunterData.Employment" name="Employment">
+  
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Relocation </mat-label>
+                  <input matInput type="text" [readonly]="readonly" [(ngModel)]="headHunterData.Relocation" name="Relocation">
+  
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Total Experience </mat-label>
+                  <input matInput type="text" [readonly]="readonly" [(ngModel)]="headHunterData.totalExperience" name="totalExperience">
+                </mat-form-field>
+              </div>
+              <div style="width:50%;margin-left:15px;">
+                <h4>Resume Data</h4>
+                <div *ngIf="headHunterResumeData">
+                  <div *ngFor="let resume of headHunterResumeData">
+  
+  
+  
+                    <mat-card>
+                      <h6>{{resume.position}}</h6>
+                      <mat-form-field>
+                        <mat-label>companyName </mat-label>
+                        <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="resume.companyName" name="companyName{{resume.id}}"></textarea>
+  
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>description </mat-label>
+                        <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="resume.description" name="description{{resume.id}}"></textarea>
+                      </mat-form-field>
+  
+                      <mat-form-field>
+                        <mat-label>companyAreaTitle </mat-label>
+                        <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="resume.companyAreaTitle" name="companyAreaTitle{{resume.id}}"></textarea>
+  
+                      </mat-form-field>
+  
+                      <mat-form-field>
+                        <mat-label>Date period</mat-label>
+  
+                        <!-- TO DO HAMID -->
+                        <input matInput type="text" [readonly]="readonly" [(ngModel)]="resume.periodDate" name="startDate{{resume.id}}">
+  
+                      </mat-form-field>
+                    </mat-card>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </mat-tab>
+  
+        <mat-tab label="Linkedin Information">
+  
+          <mat-card style="text-align:center">
+            <mat-form-field>
+              <mat-label>Linkedin Url For Parsing </mat-label>
+              <textarea matInput type="text" [(ngModel)]="linkedin_url" name="linkedin_url"></textarea>
+  
+            </mat-form-field>
+            <div *ngIf="linkedin_plugin_url_link">
+  
+              <p>
+                <b>You don not have required plugin for Linkedin parsing</b>
+                <a href="/Assets/RRM_Plugin.rar">Link for plugin downloading </a>
+                Короткая инструкция <br>
+                1.Нужно распаковать это в папку. И положить папку там, где ты её случайно не удалишь. <br>
+                2.Открыть хром. Введи в url строку chrome://extensions/ и нажми enter. <br>
+                3.Справа сверху есть слайдер "Developer mode|Режим разработчика" , активируй его <br>
+                4.Слева сверху появится кнопка "Load unpacked|загрузить распакованный". <br>
+                5.Откроется проводник, там надо выбрать папку из пункта 1. <br>
+              </p>
+            </div>
+            <div *ngIf="readonly">
+  
+              <button mat-raised-button class="standart_text" type="button" (click)="onLinkedinParsing()"> Parse this url </button>
+              <button mat-raised-button class="standart_text" type="button" (click)="onLinkedinClear()"> Clear linkedin info </button>
+              <div *ngIf="linkedin_data && linkedin_data.profile" style="display:flex;flex-direction:row">
+  
+  
+  
+  
+  
+                <div style="width:50%;">
+                  <mat-form-field>
+                    <mat-label>Name </mat-label>
+                    <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="linkedin_data.profile.Name" name="FirstName"></textarea>
+                  </mat-form-field>
+  
+  
+                  <mat-form-field>
+                    <mat-label>Position </mat-label>
+                    <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="linkedin_data.profile.Position" name="Position"></textarea>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>LocationName </mat-label>
+                    <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="linkedin_data.profile.LocationName" name="LocationName"></textarea>
+  
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>SkillSummary </mat-label>
+                    <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="linkedin_data.profile.SkillSummary" name="SkillSummary"></textarea>
+  
+                  </mat-form-field>
+  
+  
+                  <mat-form-field>
+                    <mat-label>About </mat-label>
+                    <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="linkedin_data.profile.About" name="About"></textarea>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>IndustrySummary </mat-label>
+                    <input matInput type="text" [readonly]="readonly" [(ngModel)]="linkedin_data.profile.IndustrySummary" name="IndustrySummary">
+  
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>LanguageSummary </mat-label>
+                    <input matInput type="text" [readonly]="readonly" [(ngModel)]="linkedin_data.profile.LanguageSummary" name="LanguageSummary">
+  
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>DateBirth</mat-label>
+                    <input matInput type="text" [readonly]="readonly" [(ngModel)]="linkedin_data.profile.DateBirth" name="DateBirth">
+                  </mat-form-field>
+                </div>
+                <div style="width:50%;margin-left:15px;">
+  
+  
+                  <div *ngIf="linkedin_data.resume_list">
+                    <h4>Resume Data</h4>
+                    <div *ngFor="let resume of linkedin_data.resume_list">
+  
+  
+                      <mat-card>
+                        <h6>{{resume.Title}}</h6>
+                        <mat-form-field>
+                          <mat-label>Title </mat-label>
+                          <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="resume.Title" name="Title{{resume.id}}"></textarea>
+  
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>CompanyName </mat-label>
+                          <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="resume.CompanyName" name="CompanyName{{resume.id}}"></textarea>
+                        </mat-form-field>
+  
+                        <mat-form-field>
+                          <mat-label>LocationName </mat-label>
+                          <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="resume.LocationName" name="LocationName{{resume.id}}"></textarea>
+  
+                        </mat-form-field>
+  
+                        <mat-form-field>
+                          <mat-label>Date period</mat-label>
+  
+                          <input matInput type="text" [readonly]="readonly" [(ngModel)]="resume.DatePeriod" name="startDate{{resume.id}}">
+  
+                        </mat-form-field>
+                      </mat-card>
+                    </div>
+                  </div>
+  
+  
+  
+  
+                  <div *ngIf="linkedin_data.edu_list">
+                    <h4>Education Data</h4>
+                    <div *ngFor="let resume of linkedin_data.edu_list">
+  
+  
+                      <mat-form-field>
+                        <mat-label>schoolName </mat-label>
+                        <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="resume.schoolName" name="schoolName{{resume.id}}"></textarea>
+  
+                      </mat-form-field>
+                      <mat-card>
+                        <!-- TO DO HAMID -->
+                        <!-- <h6>{{resume.Title}}</h6> -->
+                        <mat-form-field>
+                          <mat-label>degreeName </mat-label>
+                          <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="resume.degreeName" name="degreeName{{resume.id}}"></textarea>
+  
+                        </mat-form-field>
+                        <mat-form-field>
+                          <mat-label>fieldOfStudy </mat-label>
+                          <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="resume.fieldOfStudy" name="fieldOfStudy{{resume.id}}"></textarea>
+                        </mat-form-field>
+  
+                        <mat-form-field>
+                          <mat-label>grade </mat-label>
+                          <textarea matInput type="text" [readonly]="readonly" [(ngModel)]="resume.grade" name="grade{{resume.id}}"></textarea>
+                        </mat-form-field>
+  
+                        <mat-form-field>
+                          <mat-label>Date period</mat-label>
+  
+                          <input matInput type="text" [readonly]="readonly" [(ngModel)]="resume.DatePeriod" name="YearStart{{resume.id}}">
+  
+                        </mat-form-field>
+                      </mat-card>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Event List">
+          <div *ngIf="event_list" class="mat-elevation-z8">
+            <mat-card *ngFor="let event of event_list" style="margin-top:12px">
+              <h4>{{event.Caption}} at {{toLocalDate(event.Date)}}</h4>
+              <p>Link - {{event.ZoomLink?event.ZoomLink:"No zoom link"}}</p>
+            </mat-card>
+            <mat-divider></mat-divider>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+  
+    </form>
+  
+  </mat-card>
+</mat-dialog-content>

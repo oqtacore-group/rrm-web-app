@@ -1,0 +1,39 @@
+<mat-card>
+
+    <mat-card-header><mat-card-title>Add Candidate To Vacancy</mat-card-title> </mat-card-header>
+  
+    <div *ngIf="vacancy_list" class="mat-elevation-z8">
+      <mat-table *ngFor="let client of vacancy_list.client_list" [dataSource]="filterVacancyList(client.id)" matSort>
+  
+  
+  
+        <ng-container matColumnDef="MyVacancy">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Vacancy of {{client.Name}} </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.Name}}    </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ActionButton">
+          <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+          <mat-cell *matCellDef="let user">
+            <div *ngIf="user.active">
+              <button mat-flat-button color="primary" class="active-vacancy-button" type="button" (click)="removeVacancy(user.id)">
+              <p class="active-text">Active</p><p class="delete-text">Delete</p>
+              </button>
+            </div>
+            <div *ngIf="!user.active">
+              <button mat-flat-button color="primary" type="button" (click)="addToVacancy(user.id)">Select</button>
+            </div>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="['MyVacancy','ActionButton']"></mat-header-row>
+        <mat-row *matRowDef="let row;columns:['MyVacancy','ActionButton'];"></mat-row>
+      </mat-table>
+  
+  
+  
+      <!--<button mat-raised-button class="standart_text" type="button" (click)="goToCreateNew()">Create new client</button>-->
+    </div>
+  
+  
+  
+  </mat-card>
+  
