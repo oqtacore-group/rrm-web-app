@@ -1,0 +1,40 @@
+<mat-card>
+    <mat-card-header><mat-card-title>Client Contact Profile</mat-card-title> </mat-card-header>
+    <form *ngIf="form_data" #clientContactForm="ngForm" (ngSubmit)="clientContactForm.form.valid && onClickEditProfile()">
+      <div style="display:flex;flex-direction:row">
+        <mat-card style="width:50%">
+          <mat-card-content>
+            <mat-form-field>
+              <mat-label>Name </mat-label>
+              <input matInput type="text" [(ngModel)]="form_data.Name" name="Name" required>
+              <button *ngIf="form_data.Name" matSuffix mat-icon-button (click)="form_data.Name=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>PhoneNumber </mat-label>
+              <input matInput type="text" [(ngModel)]="form_data.PhoneNumber" name="PhoneNumber" required>
+              <button *ngIf="form_data.PhoneNumber" matSuffix mat-icon-button (click)="form_data.PhoneNumber=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Email </mat-label>
+              <input matInput type="text" [(ngModel)]="form_data.Email" name="Email" required>
+              <button *ngIf="form_data.Email" matSuffix mat-icon-button (click)="form_data.Email=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <button mat-raised-button class="standart_text" type="submit">Edit contact</button>
+            <button mat-raised-button *ngIf="form_data.id!=0" class="standart_text" type="button" (click)="deleteContact()"> Delete contact</button>
+          </mat-card-content>
+        </mat-card>
+        
+      </div>
+  
+        
+  
+    </form>
+  
+  </mat-card>
+  

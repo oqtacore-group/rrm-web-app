@@ -1,0 +1,17 @@
+mat-form-field {
+    width: 100%;
+  }
+
+  .active {
+    color: green;
+    padding: 10px;
+    cursor:pointer;
+  }
+
+  .deactive {
+    padding: 10px;
+    cursor: pointer;
+  }
+  .attention_label{
+    color:orange;
+  }

@@ -1,0 +1,34 @@
+<div style="border:4px solid black;padding:10px; margin:10px;">
+    <div *ngIf="status_list && resultString===''">
+      <mat-card-header><mat-card-title style="padding:10px;">New  Status</mat-card-title> </mat-card-header>
+      <p style="padding:10px;">Do you want to change status for candidate - {{candidate.Name}} - for Vacancy - <b>{{vacancy.Name}} </b></p>
+      <p style="padding:10px;">Current status for vacancy : {{returnStatusName(vacancyStatus.VacancyStatusId)}}</p>
+      <div class="mat-elevation-z8">
+        <style>
+          mat-form-field {
+            max-width: 400px;
+            width: 100%;
+          }
+        </style>
+        <mat-form-field style="padding:10px;"> 
+          <mat-label>Select new status </mat-label>
+          <select matNativeControl [(ngModel)]="vacancyStatusId" name="vacancyStatusId">
+            <option *ngFor="let type of status_list" value="{{type.id}}">{{type.Name}}</option>
+          </select>
+  
+  
+        </mat-form-field>
+        <mat-form-field style="padding:10px;">
+          <mat-label>Write note if needed. Optional</mat-label>
+          <input matInput type="text"  [(ngModel)]="note" name="note">
+  
+        </mat-form-field>
+        <button mat-raised-button class="standart_text" type="button" (click)="postChangeStatus()">Save Change</button>
+      </div>
+    </div>
+  
+    <div *ngIf="resultString!=''">
+      <h4 style="color: red; padding: 10px;">{{resultString}}</h4>
+    </div>
+  </div>
+  
