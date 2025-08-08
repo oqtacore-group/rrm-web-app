@@ -1,0 +1,68 @@
+  
+  
+  input[type='checkbox'] {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid #555;
+  }
+  
+  input[type='radio'] {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 2px solid #555;
+  }
+  
+  .standart_text {
+    font-size: 2rem;
+  }
+  
+  .mat-nav-list a.active {
+    color: blue;
+    font-weight: bold;
+  }
+  
+  mat-card {
+    padding: 5px !important;
+    margin: 5px !important;
+  }
+  
+  .mat-card {
+    padding: 5px !important;
+    margin: 5px !important;
+  }
+  
+  .mat-divider {
+    border-top-width: 3px;
+  }
+  
+  .mat-sort-header-container {
+    font-size: 16px;
+  }
+  
+  mat-card-title {
+    font-size: 18px;
+  }
+  
+  .toolbar-title {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  @media (max-width: 992px) {
+    .toolbar-title {
+      display: none;
+    }
+    body {
+      min-width: unset !important;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .toogle-button {
+      display: none;
+    }
+  
+  
+  }

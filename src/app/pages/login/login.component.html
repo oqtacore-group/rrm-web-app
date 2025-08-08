@@ -1,0 +1,26 @@
+<div id="login">
+    <mat-card>
+        <mat-toolbar color="primary" class="mat-login-toolbar">
+        <img src="assets/images/logo.svg">
+        <h1>Login</h1>
+        </mat-toolbar>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-card-content>
+            <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" required autocomplete="off">
+            <mat-error *ngIf="submitted && loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                <span>Password is required.</span>
+            </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button class="btn-login" color="primary" [disabled]="loading">Login</button>
+        </mat-card-actions>
+        </form>
+    </mat-card>
+    </div>

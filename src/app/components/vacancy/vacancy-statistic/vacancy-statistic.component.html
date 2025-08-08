@@ -1,0 +1,52 @@
+
+    <mat-card *ngIf="tableList">
+      <mat-card-content class="container-fluid content">
+        <div style="display:flex;flex-direction:row;height: 70px;
+        margin-bottom: 20px;">
+    
+        <label style="margin-left:auto;margin-right:10px;line-height: 70px;">Vacancy Activity for period of </label>
+        <mat-form-field style="margin-left: 10px;
+        margin-right: 10px;">
+          <mat-label>startDate </mat-label>
+          <input matInput [matDatepicker]="startDatePicker" (dateChange)="updateStatModel()" [(ngModel)]="startDate" name="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field style="margin-right:auto">
+          <mat-label>endDate </mat-label>
+          <input matInput [matDatepicker]="endDatePicker" (dateChange)="updateStatModel()" [(ngModel)]="endDate" name="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+        
+        <mat-card *ngFor="let table of tableList" class="card-item">
+          <div class="mat-elevation-z8" *ngIf="table.rowList && table.rowList.statusList" style="display:flex;flex-direction:row">
+            <h4 style="text-align:center">{{table.vacancy.Name}}</h4>
+            <table mat-table [dataSource]="table.rowList.statusList">
+              <ng-container matColumnDef="StatusName">
+                <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.Name}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="Total">
+                <mat-header-cell *matHeaderCellDef> Funnel of candidates </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <div class="StatisticBlank" [style.width]="table.round(row).toString() +'%'" (mouseenter)="table.onRowHover(row)" (mouseleave)="table.onRowHoverLeave()">
+                    <div style="height: 40px;background-color: #F44336;" [style.width]="table.roundRowFail(row).toString() +'%'"></div>
+                    <div style="height: 40px;background-color: greenyellow;" [style.width]="table.roundRowSuccess(row).toString() +'%'"></div>
+                  </div>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="columnToDisplay"></mat-header-row>
+              <mat-row *matRowDef="let row;columns:columnToDisplay;"></mat-row>        
+            </table>
+            <mat-card class="summary">
+              <p>Statistic for {{table.hoveredStatus}}</p>
+              <p>All : {{table.totalHoveredCount}}</p>
+              <p>Success : {{table.successHoveredCount}}</p>
+              <p>Fail : {{table.failHoveredCount}}</p>
+            </mat-card>
+          </div>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>

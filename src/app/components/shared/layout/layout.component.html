@@ -1,0 +1,22 @@
+<div style="height:100%">
+
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <!--Add select menu-->
+      <select (click)="navigateTo($event)" style="margin-right:20px; margin-left: 10px;">
+        <option value="/Client" [selected]="isRouteActive('/Client')"> Clients</option>
+        <option value="/Vacancy" [selected]="isRouteActive('/Vacancy')"> Vacancies</option>
+      </select>
+
+      <h1 class="toolbar-title">BrainHunter Admin</h1>
+
+      <app-search-bar></app-search-bar>
+      <h1 class="toolbar-title" *ngIf="selectedRecruiter && selectedRecruiter.Name">You are logged as {{selectedRecruiter.Name}}</h1>
+      <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+      <a mat-button routerLinkActive="active" class="toolbar-title" routerLink="/Calendar" style="margin-left:auto; font-size: 13pt;">Calendar</a>
+      <a mat-button routerLinkActive="active" class="toolbar-title" routerLink="/Statistic" style="margin-left:10px; font-size: 13pt;">Statistic</a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <router-outlet></router-outlet>
+</div>

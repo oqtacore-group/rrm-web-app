@@ -1,0 +1,42 @@
+<mat-card>
+
+    <mat-card-title>Current Vacancies status</mat-card-title>
+    <mat-card *ngIf="vacancy_status_list && vacancy_status_list.list" style="    display: flex;
+      flex-direction: row;
+      overflow-x: scroll;">
+      <div *ngFor="let status_type of vacancy_status_list.list" [style.cursor]="status_type.CandidateCount>0?'pointer':'not-allowed'" [ngClass]="'deactive'" (click)="status_type.CandidateCount>0?openOtherStatus(status_type.StatusId):''">
+  
+        <strong  [ngClass]="(status_type.StatusId==attentionTypeId && status_type.CandidateCount>0)?'attention_label':''"  >{{status_type.Name}}({{status_type.CandidateCount}})</strong>
+   
+      </div>
+  
+    </mat-card>
+    <mat-divider></mat-divider>
+    <mat-card *ngIf="recruiterList" class="mat-elevation-z8">
+      <div *ngFor="let recruiter of recruiterList">
+        <mat-card>
+          <mat-card-title>{{recruiter.Name}}</mat-card-title>
+          <mat-table *ngIf="vacancyData" [dataSource]="recruiter.tableData" matSort>
+  
+  
+  
+            <ng-container matColumnDef="Name" >
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+              <mat-cell *matCellDef="let vacancy" > {{vacancy.Name}}  ({{vacancy.ClientName}}) </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Status">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+              <mat-cell *matCellDef="let vacancy"> {{vacancy.SuccessCount}}/{{vacancy.WorkplaceNumber}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="CandidateNumber">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> CandidateNumber </mat-header-cell>
+              <mat-cell *matCellDef="let vacancy">{{vacancy.CandidateCount}} </mat-cell>
+            </ng-container>
+  
+            <mat-header-row *matHeaderRowDef="columnToDisplay"></mat-header-row>
+            <mat-row *matRowDef="let row;columns:columnToDisplay;" (click)="onRowClicked(row)" class="clicable"></mat-row>
+          </mat-table>
+        </mat-card>
+      </div>
+    </mat-card>
+  </mat-card>

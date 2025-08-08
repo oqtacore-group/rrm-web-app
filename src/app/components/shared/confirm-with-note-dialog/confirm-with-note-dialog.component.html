@@ -1,0 +1,14 @@
+
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>{{data.text}}</mat-label>
+    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows=5 [(ngModel)]="noteText" name="noteText" required></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+  <mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" (click)="answerQuestion(false)">Cancel</button>
+  <button mat-button mat-dialog-close (click)="answerQuestion(true)" cdkFocusInitial>Yes</button>
+</mat-dialog-actions>

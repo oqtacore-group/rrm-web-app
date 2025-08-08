@@ -1,0 +1,23 @@
+    <mat-sidenav-container style="min-height:90%" autosize>
+      <mat-sidenav #sidenav mode="side" opened style="max-width:500px;display:flex;flex-direction:column;padding-left:20px;text-align:center">
+        <mat-nav-list class="toogle-button">
+          <button mat-button (click)="sidenav.toggle()">Toggle</button>
+          <a mat-list-item routerLinkActive="active" routerLink="/Calendar">Calendar</a>
+          <a mat-list-item routerLinkActive="active" routerLink="/Statistic">Statistic</a>
+        </mat-nav-list>
+        <div #sidenav *ngIf="isRouteActive('/Client')">
+          <mat-nav-list>
+            <!--<a  mat-list-item routerLinkActive="active" routerLink="">Главная</a>-->
+            <a mat-list-item routerLinkActive="active" routerLink="/Client">All Clients</a>
+  
+          </mat-nav-list>
+        </div>
+      </mat-sidenav>
+  
+      <mat-sidenav-content>
+        <button class="toogle-button" mat-button (click)="sidenav.toggle()">Toggle</button>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+  
+    </mat-sidenav-container>
+    <app-client-add-fab></app-client-add-fab>

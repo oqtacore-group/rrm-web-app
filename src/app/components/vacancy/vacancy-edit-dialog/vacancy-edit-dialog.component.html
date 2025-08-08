@@ -1,0 +1,153 @@
+<h2 mat-dialog-title>Vacancy Profile</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+  <mat-card>
+
+    <form *ngIf="form_data" #vacancyForm="ngForm" (ngSubmit)="vacancyForm.form.valid && onClickEditProfile()" style="text-align:center">
+      <mat-card-actions>
+        <button mat-raised-button class="standart_text" type="submit">Save vacancy</button>
+        <button mat-raised-button class="standart_text" type="button" (click)="closeDialog(true)"> Close </button>
+      </mat-card-actions>
+      <div style="display:flex;flex-direction:row">
+        <mat-card style="width:50%">
+          <mat-card-content>
+            <mat-form-field>
+              <mat-label>Name </mat-label>
+              <input matInput type="text" [(ngModel)]="form_data.Name" name="Name" required>
+              <button mat-button *ngIf="form_data.Name" matSuffix mat-icon-button (click)="form_data.Name=''">
+                <mat-icon>X</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Client </mat-label>
+              <select matNativeControl [(ngModel)]="form_data.ClientId" name="ClientId" required>
+                <option value="0" selected></option>
+    
+                <option *ngFor="let client of clientList" value="{{client.id}}">{{client.Name}}</option>
+              </select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>People needed for this vacancy </mat-label>
+              <input matInput type="number" [(ngModel)]="form_data.WorkplaceNumber" name="WorkplaceNumber" required>
+              <button mat-button *ngIf="form_data.WorkplaceNumber" matSuffix mat-icon-button (click)="form_data.WorkplaceNumber=0">
+                <mat-icon>X</mat-icon>
+              </button>
+            </mat-form-field>
+            <!--Future select-->
+            <mat-form-field>
+              <mat-label>Status </mat-label>
+              <input matInput type="text" [(ngModel)]="form_data.Status" name="Status">
+              <button mat-button *ngIf="form_data.Status" matSuffix mat-icon-button (click)="form_data.Status=''">
+                <mat-icon>X</mat-icon>
+              </button>
+            </mat-form-field>
+    
+    
+            <div>
+              <mat-form-field style="width:40%">
+                <mat-label>Salary Lower End </mat-label>
+                <input matInput type="number" [(ngModel)]="form_data.SalaryLowerEnd" name="SalaryLowerEnd">
+                <button mat-button *ngIf="form_data.SalaryLowerEnd" matSuffix mat-icon-button (click)="form_data.SalaryLowerEnd=0">
+                  <mat-icon>X</mat-icon>
+                </button>
+              </mat-form-field>
+    
+              <mat-form-field style="width:40%">
+                <mat-label>Salary High End </mat-label>
+                <input matInput type="number" [(ngModel)]="form_data.SalaryHighEnd" name="SalaryHighEnd">
+                <button mat-button *ngIf="form_data.SalaryHighEnd" matSuffix mat-icon-button (click)="form_data.SalaryHighEnd=0">
+                  <mat-icon>X</mat-icon>
+                </button>
+              </mat-form-field>
+              <!--Future select-->
+              <mat-form-field style="width:20%">
+                <mat-label>Currency </mat-label>
+    
+                <select matNativeControl [(ngModel)]="form_data.SalaryCurrency" name="SalaryCurrency">
+                  <option value="-" selected></option>
+    
+                  <option *ngFor="let currency of currencyList" value="{{currency}}">{{currency}}</option>
+                </select>
+                <!--<input matInput type="text" [(ngModel)]="form_data.SalaryCurrency" name="SalaryCurrency" required>-->
+                <!--<button mat-button *ngIf="form_data.SalaryCurrency" matSuffix mat-icon-button (click)="form_data.SalaryCurrency=''">
+                <mat-icon>X</mat-icon>
+              </button>-->
+              </mat-form-field>
+            </div>
+            <mat-form-field>
+              <mat-label>Experience in months</mat-label>
+              <input matInput type="number" [(ngModel)]="form_data.Experience" name="Experience">
+              <button mat-button *ngIf="form_data.Experience" matSuffix mat-icon-button (click)="form_data.Experience=0">
+                <mat-icon>X</mat-icon>
+              </button>
+            </mat-form-field>
+    
+            <mat-form-field>
+              <mat-label>Location </mat-label>
+              <input matInput type="text" [(ngModel)]="form_data.Location" name="Location">
+              <button mat-button *ngIf="form_data.Location" matSuffix mat-icon-button (click)="form_data.Location=''">
+                <mat-icon>X</mat-icon>
+              </button>
+            </mat-form-field>
+            <!--Future select-->
+            <mat-form-field>
+              <mat-label>LocalTime</mat-label>
+              <input matInput type="text" [(ngModel)]="form_data.LocalTime" name="LocalTime">
+              <button mat-button *ngIf="form_data.LocalTime" matSuffix mat-icon-button (click)="form_data.LocalTime=''">
+                <mat-icon>X</mat-icon>
+              </button>
+            </mat-form-field>
+    
+    
+            <mat-checkbox [(ngModel)]="form_data.RelocationHelp" name="RelocationHelp" labelPosition="after">Wil be Relocation Help</mat-checkbox>
+            <mat-checkbox [(ngModel)]="form_data.RemoteWorkPlace" name="RemoteWorkPlace" labelPosition="after">Allow Remote Work</mat-checkbox>
+  
+          </mat-card-content>
+  
+        </mat-card>
+        <mat-card style="width:50%">
+          <mat-form-field>
+            <mat-label>Responsibility </mat-label>
+            <textarea matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows=5 [(ngModel)]="form_data.Responsibility" name="Responsibility"></textarea>
+            <button mat-button *ngIf="form_data.Responsibility " matSuffix mat-icon-button (click)="form_data.Responsibility=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Resume text</mat-label>
+            <textarea matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows=5 [(ngModel)]="form_data.Skills" name="Skills"></textarea>
+            <button mat-button *ngIf="form_data.Skills " matSuffix mat-icon-button (click)="form_data.Skills=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Personal Quality </mat-label>
+            <textarea matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows=5 [(ngModel)]="form_data.PersonalQuality" name="PersonalQuality"></textarea>
+            <button mat-button *ngIf="form_data.PersonalQuality " matSuffix mat-icon-button (click)="form_data.PersonalQuality=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Languages </mat-label>
+            <textarea matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows=3 [(ngModel)]="form_data.Languages" name="Languages"></textarea>
+            <button mat-button *ngIf="form_data.Languages" matSuffix mat-icon-button (click)="form_data.Languages=''">
+              <mat-icon>X</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field>
+  
+            <mat-label>Notes </mat-label>
+            <textarea matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows=4 [(ngModel)]="form_data.Notes" name="Notes"></textarea>
+            <button mat-button *ngIf="form_data.Notes" matSuffix mat-icon-button (click)="form_data.Notes=''">
+              <mat-icon>X</mat-icon>
+            </button>
+  
+          </mat-form-field>
+        </mat-card>
+      </div>
+  
+  
+    </form>
+  
+  </mat-card>
+</mat-dialog-content>
