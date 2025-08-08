@@ -1,0 +1,67 @@
+<div class="text-center" style="display:flex;flex-direction:row">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div class="btn btn-primary"
+             mwlCalendarPreviousView
+             [view]="view"
+             [(viewDate)]="viewDate"
+             (viewDateChange)="closeOpenMonthViewDay()">
+          Previous
+        </div>
+        <div class="btn btn-outline-secondary"
+             mwlCalendarToday
+             [(viewDate)]="viewDate">
+          Today
+        </div>
+        <div class="btn btn-primary"
+             mwlCalendarNextView
+             [view]="view"
+             [(viewDate)]="viewDate"
+             (viewDateChange)="closeOpenMonthViewDay()">
+          Next
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </div>
+  
+  </div>
+  <br />
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month"
+                             [viewDate]="viewDate"
+                             [events]="events"
+                          
+                             [activeDayIsOpen]="activeDayIsOpen"
+                             (dayClicked)="dayClicked($event.day)"
+                             (eventClicked)="handleEvent('Clicked', $event.event)"
+                             (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week"
+                            [viewDate]="viewDate"
+                            [events]="events"
+                           
+                            (eventClicked)="handleEvent('Clicked', $event.event)"
+                            (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day"
+                           [viewDate]="viewDate"
+                           [events]="events"
+                        
+                           (eventClicked)="handleEvent('Clicked', $event.event)"
+                           (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-day-view>
+  </div>
+  
+  <div style="position: sticky;
+      bottom:20px;
+      left: 20px;z-index:100; font-size:40px; display:flex;flex-direction:column-reverse;">
+    <button mat-fab color="primary" (click)="toggle()"><mat-icon>add</mat-icon></button>
+    <div *ngIf="active" style="width:fit-content">
+      <mat-card style="display:flex;flex-direction:column">
+        <button mat-raised-button class="standart_text" (click)="addCandidateEvent()">Add Event</button>
+      </mat-card>
+  
+    </div>
+  </div>

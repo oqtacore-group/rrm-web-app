@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>New  Status</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Select new status </mat-label>
+    <select matNativeControl [(ngModel)]="selected_vacancy_status_id" name="vacancy_status" >
+      <option *ngFor="let type of vacancy_type_list" value="{{type.id}}">{{type.Name}}</option>
+    </select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+  <mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" (click)="closeDialog()">Cancel</button>
+  <button mat-button mat-dialog-close (click)="changeStatus()" cdkFocusInitial>Save changes</button>
+</mat-dialog-actions>

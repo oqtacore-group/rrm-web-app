@@ -1,0 +1,18 @@
+mat-form-field {
+    width: 100%;
+  }
+
+  mat-checkbox {
+    padding: 10px;
+  }
+
+  .readonly-wrapper {
+    cursor: not-allowed;
+  }
+
+    .readonly-wrapper .readonly-block {
+      pointer-events: none;
+    }
+    mat-card{
+      margin:5px;
+    }
