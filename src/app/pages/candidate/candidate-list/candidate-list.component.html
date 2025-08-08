@@ -1,0 +1,103 @@
+
+
+<mat-card>
+    <mat-card-header><mat-card-title>Candidate List</mat-card-title> </mat-card-header>
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
+    <div class="mat-elevation-z8">
+      <mat-table [dataSource]="material_source" matSort>
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> id </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.id}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> name </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.Name}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="PhoneNumber">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> PhoneNumber </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.PhoneNumber}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="SiteUrl">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> SiteUrl </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.SiteUrl}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.Email}} </mat-cell>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="ContactDataId">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> ContactDataId </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.ContactDataId}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Note">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Note </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.Note}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Sex">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Sex </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.Sex}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Location">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Location </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.Location}} </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="DateOfBirth">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> DateOfBirth </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.DateOfBirth}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="RelocationReady">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> RelocationReady </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.RelocationReady}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="RemoteWorkplaceReady">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> RemoteWorkplaceReady </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.RemoteWorkplaceReady}} </mat-cell>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="SalaryWish">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> SalaryWish </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.SalaryWish}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="SalaryCurrency">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> SalaryCurrency </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.SalaryCurrency}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="PhotoUrl">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> PhotoUrl </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.PhotoUrl}} </mat-cell>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="MainSkill">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> MainSkill </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.MainSkill}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Leader">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Leader </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.Leader}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="HowKnowAboutVacancy">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> HowKnowAboutVacancy </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.HowKnowAboutVacancy}} </mat-cell>
+        </ng-container>
+  
+  
+        <mat-header-row *matHeaderRowDef="columnToDisplay"></mat-header-row>
+        <mat-row *matRowDef="let row;columns:columnToDisplay;" (click)="onRowClicked(row)"></mat-row>
+      </mat-table>
+  
+  
+      <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize"
+                     [pageIndex]="currentPage" >
+      </mat-paginator>
+      <button mat-raised-button class="standart_text" type="button" (click)="goToCreateNew()">Create new candidate</button>
+    </div>
+  
+  </mat-card>  

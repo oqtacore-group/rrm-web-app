@@ -1,0 +1,69 @@
+
+  <mat-card>
+    <mat-card-content class="container-fluid content">
+   
+      <div style="display:flex;flex-direction:row;height: 70px;
+      margin-bottom: 20px;">
+      <mat-form-field style="line-height: 35px;margin-left:auto">
+        <mat-select [(ngModel)]="selectedRecruiterId" (selectionChange)="onRecruiterChange($event)" name="selectedRecruiter">
+  
+          <mat-option [value]="0">All Recruiters</mat-option>
+          <mat-option *ngIf="selectedRecruiter" [value]="selectedRecruiter.id" selected>
+            {{selectedRecruiter.Name}}
+          </mat-option>
+          <mat-optgroup label="Other recruiters">
+            <mat-option *ngFor="let recruiter of recruiterList" [value]="recruiter.id">
+              {{recruiter.Name}}
+            </mat-option>
+          </mat-optgroup>
+  
+        </mat-select>
+  
+      </mat-form-field>
+      <label style="margin-left:10px;margin-right:10px;line-height: 70px;"> Activity for period of </label>
+  
+      <mat-form-field style="margin-left: 10px;
+      margin-right: 10px;">
+        <mat-label>startDate </mat-label>
+        <input matInput [matDatepicker]="startDatePicker" (dateChange)="updateStatModel()" [(ngModel)]="startDate" name="startDate">
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field style="margin-right:auto">
+        <mat-label>endDate </mat-label>
+        <input matInput [matDatepicker]="endDatePicker" (dateChange)="updateStatModel()" [(ngModel)]="endDate" name="endDate">
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  
+      
+      <div class="mat-elevation-z8" *ngIf="form_data && form_data.statusList" style="display:flex;flex-direction:row">
+        <table mat-table [dataSource]="form_data.statusList">
+          <ng-container matColumnDef="StatusName">
+            <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.Name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Total">
+            <mat-header-cell *matHeaderCellDef> Funnel of candidates </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <div class="StatisticBlank" [style.width]="round(row).toString() +'%'" (mouseenter)="onRowHover(row)" (mouseleave)="onRowHoverLeave()">
+                <div style="height: 40px;background-color: #F44336;" [style.width]="roundRowFail(row).toString() +'%'"></div>
+                <div style="height: 40px;background-color: greenyellow;" [style.width]="roundRowSuccess(row).toString() +'%'"></div>
+              </div>
+            </mat-cell>
+            ma
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="columnToDisplay"></mat-header-row>
+          <mat-row *matRowDef="let row;columns:columnToDisplay;"></mat-row>
+        </table>
+  
+        <mat-card class="summary">
+          <p>Statistic for {{hoveredStatus}}</p>
+          <p>All : {{totalHoveredCount}}</p>
+          <p>Success : {{successHoveredCount}}</p>
+          <p>Fail : {{failHoveredCount}}</p>
+        </mat-card>
+      </div>
+      </mat-card-content>
+  </mat-card>

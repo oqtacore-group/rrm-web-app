@@ -1,0 +1,11 @@
+<div style="position: fixed;
+    bottom:20px;
+    left: 20px;z-index:100; font-size:40px; display:flex;flex-direction:column-reverse;">
+  <button mat-fab color="primary" (click)="toggle()"><mat-icon>add</mat-icon></button>
+  <div *ngIf="active" style="width:fit-content">
+    <mat-card style="display:flex;flex-direction:column">
+        <button mat-raised-button class="standart_text" (click)="addEvent()">Add Event</button>
+        <button mat-raised-button class="standart_text" (click)="addCandidate()">Add Candidate</button>
+    </mat-card>
+    </div>
+</div>

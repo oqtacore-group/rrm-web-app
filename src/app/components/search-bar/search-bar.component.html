@@ -1,0 +1,45 @@
+<div style="margin-left: 20px;
+    background: white;
+    border-radius: 5px;
+    color: black;">
+  <input type="text"
+         matInput
+         placeholder="Search"
+         [matAutocomplete]="autoGroup" (input)="inputChanged($event)">
+  <mat-autocomplete #autoGroup="matAutocomplete">
+    <mat-optgroup label="Clients" *ngIf="search && search.clientOutput && search.clientOutput.length>0">
+      <mat-option *ngFor="let client of search.clientOutput" [value]="client.Name" (click)="navigateTo('client',client.id)"
+                  (onSelectionChange)="navigateTo('client',client.id)">
+        {{client.Name}}
+      </mat-option>
+    </mat-optgroup>
+
+    <mat-optgroup label="Vacancies" *ngIf="search && search.vacancyOutput && search.vacancyOutput.length>0">
+      <mat-option *ngFor="let vacancy of search.vacancyOutput" [value]="vacancy.Name" (onSelectionChange)="navigateTo('vacancy',vacancy.id)" (keydown)="navigateTo('vacancy',vacancy.id)">
+        {{vacancy.Name}}
+      </mat-option>
+    </mat-optgroup>
+
+    <mat-optgroup label="Candidates" *ngIf="search && search.candidateOutput && search.candidateOutput.length>0">
+      <mat-option *ngFor="let candidate of search.candidateOutput" [value]="candidate.Name" (click)="navigateTo('candidate',candidate.id)"
+                  (onSelectionChange)="navigateTo('candidate',candidate.id)">
+        {{candidate.Name}}
+      </mat-option>
+    </mat-optgroup>
+    <mat-optgroup label="Clients" *ngIf="search && search.clientOutput && search.clientOutput.length==0">
+      <mat-option>
+        -
+      </mat-option>
+    </mat-optgroup>
+    <mat-optgroup label="Vacancies" *ngIf="search && search.vacancyOutput && search.vacancyOutput.length==0">
+      <mat-option>
+        -
+      </mat-option>
+    </mat-optgroup>
+    <mat-optgroup label="Candidates" *ngIf="search && search.candidateOutput && search.candidateOutput.length==0">
+      <mat-option>
+        -
+      </mat-option>
+    </mat-optgroup>
+  </mat-autocomplete>
+</div>
