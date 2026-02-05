@@ -1,4 +1,4 @@
 export const environment = {
-    production: true,
-    apiUrl: 'https://staging-rrm-api.oqtacore.com'
+    production: false,
+    apiUrl: 'https://localhost:5000'
 };
